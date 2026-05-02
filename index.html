@@ -1,0 +1,1615 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="SwissTutor - structured tutoring programmes for Swiss university students, with a money-back guarantee." />
+  <title>SwissTutor - Structured tutoring programmes</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      --blue:#1C45F4;
+      --blue-dark:#1234CC;
+      --blue-pale:#EEF1FF;
+      --blue-mid:#C7D0FF;
+      --yellow:#FFD23F;
+      --yellow-bg:#FFF7D6;
+      --ink:#0A0E1A;
+      --ink-mid:#3B4260;
+      --ink-light:#7B84A3;
+      --surface:#F5F7FF;
+      --white:#FFFFFF;
+      --radius-card:22px;
+      --shadow-soft:0 18px 50px rgba(10,14,26,.10);
+      --shadow-card:0 12px 30px rgba(10,14,26,.08);
+      --max:1120px;
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family:"DM Sans", system-ui, -apple-system, Segoe UI, sans-serif;
+      font-weight:400;
+      color:var(--ink);
+      background:var(--white);
+      line-height:1.55;
+    }
+    img{ max-width:100%; height:auto; }
+    a{ color:inherit; text-decoration:none; }
+    button, input, select, textarea{ font:inherit; }
+    .container{ max-width:var(--max); margin:0 auto; padding:0 20px; }
+    .section{ padding:88px 0; }
+    .surface{ background:var(--surface); }
+    .visually-hidden{
+      position:absolute !important;
+      height:1px; width:1px;
+      overflow:hidden;
+      clip:rect(1px,1px,1px,1px);
+      white-space:nowrap;
+    }
+
+    /* Typography */
+    h1,h2,h3{ margin:0; }
+    .h-font{
+      font-family:"Syne", system-ui, -apple-system, Segoe UI, sans-serif;
+      /* Prevent synthetic stretching; slightly more condensed look */
+      font-stretch:normal;
+      letter-spacing:-0.055em;
+    }
+    .h1{
+      font-size:clamp(2.6rem, 5.2vw, 4.4rem);
+      line-height:1.02;
+      font-weight:800;
+    }
+    .h2{
+      font-size:clamp(2.0rem, 3.3vw, 2.8rem);
+      line-height:1.1;
+      font-weight:800;
+      letter-spacing:-0.03em;
+    }
+    .h3{
+      font-size:1.25rem;
+      line-height:1.25;
+      font-weight:800;
+      letter-spacing:-0.02em;
+    }
+    .lead{
+      margin-top:14px;
+      color:var(--ink-mid);
+      font-weight:400;
+      font-size:1.12rem;
+      max-width:62ch;
+    }
+    .muted{ color:var(--ink-light); }
+
+    /* Section label */
+    .label{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      font-size:.78rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--ink-mid);
+      font-weight:500;
+    }
+    .label::before{
+      content:"";
+      width:26px;
+      height:2px;
+      border-radius:2px;
+      background:var(--blue);
+      opacity:.9;
+    }
+    .label.yellow{ color:rgba(255,255,255,.85); }
+    .label.yellow::before{ background:var(--yellow); }
+
+    /* Buttons */
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.55rem;
+      padding:.85rem 2rem;
+      border-radius:100px;
+      border:2px solid transparent;
+      cursor:pointer;
+      font-weight:500;
+      transition:transform .18s ease, background .18s ease, border-color .18s ease, color .18s ease, box-shadow .18s ease;
+      white-space:nowrap;
+    }
+    .btn:active{ transform:translateY(1px); }
+    .btn.primary{ background:var(--blue); color:var(--white); box-shadow:0 10px 24px rgba(28,69,244,.18); }
+    .btn.primary:hover{ background:var(--blue-dark); }
+    .btn.outline{ background:var(--white); border-color:var(--blue); color:var(--blue); }
+    .btn.outline:hover{ background:var(--blue-pale); }
+    .btn.on-dark{ background:var(--white); color:var(--blue); }
+    .btn.on-dark:hover{ background:rgba(255,255,255,.92); }
+    .btn.full{ width:100%; }
+
+    /* Nav */
+    .nav{
+      position:fixed;
+      top:0; left:0; right:0;
+      z-index:50;
+      background:rgba(255,255,255,.78);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(199,208,255,.7);
+    }
+    .nav-inner{
+      height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+    }
+    .logo{
+      display:flex;
+      align-items:baseline;
+      gap:.05em;
+      font-family:"Syne", system-ui, -apple-system, Segoe UI, sans-serif;
+      font-weight:800;
+      letter-spacing:-0.03em;
+      font-size:1.25rem;
+    }
+    .logo .swiss{ color:var(--ink); }
+    .logo .tutor{ color:var(--blue); }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:22px;
+      padding:0 8px;
+      border-radius:999px;
+    }
+    .nav-links a{
+      color:var(--ink-mid);
+      font-weight:500;
+      font-size:.95rem;
+      padding:10px 8px;
+      border-radius:10px;
+      transition:background .18s ease, color .18s ease;
+    }
+    .nav-links a:hover{ background:rgba(238,241,255,.85); color:var(--ink); }
+    .nav-cta{ display:flex; align-items:center; gap:10px; }
+
+    .hamburger{
+      display:none;
+      width:44px; height:44px;
+      border-radius:12px;
+      border:1px solid rgba(199,208,255,.8);
+      background:rgba(255,255,255,.9);
+      cursor:pointer;
+      align-items:center;
+      justify-content:center;
+      transition:background .18s ease, transform .18s ease;
+    }
+    .hamburger:hover{ background:var(--blue-pale); }
+    .hamburger-lines{ width:18px; height:12px; position:relative; }
+    .hamburger-lines span{
+      position:absolute; left:0; right:0;
+      height:2px; border-radius:2px;
+      background:var(--ink);
+      transition:transform .18s ease, opacity .18s ease, top .18s ease;
+    }
+    .hamburger-lines span:nth-child(1){ top:0; }
+    .hamburger-lines span:nth-child(2){ top:5px; opacity:.85; }
+    .hamburger-lines span:nth-child(3){ top:10px; }
+    .nav-open .hamburger-lines span:nth-child(1){ top:5px; transform:rotate(45deg); }
+    .nav-open .hamburger-lines span:nth-child(2){ opacity:0; }
+    .nav-open .hamburger-lines span:nth-child(3){ top:5px; transform:rotate(-45deg); }
+
+    .mobile-menu{
+      display:none;
+      border-top:1px solid rgba(199,208,255,.7);
+      background:rgba(255,255,255,.92);
+      backdrop-filter:blur(14px);
+    }
+    .mobile-menu .container{
+      padding-top:12px;
+      padding-bottom:18px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .mobile-menu a{
+      padding:12px 12px;
+      border-radius:12px;
+      font-weight:500;
+      color:var(--ink-mid);
+      border:1px solid rgba(199,208,255,.55);
+      background:rgba(245,247,255,.7);
+    }
+    .mobile-menu a:hover{ background:var(--blue-pale); color:var(--ink); }
+
+    /* Hero */
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      padding-top:96px; /* nav offset */
+      padding-bottom:64px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero .bg-blob{
+      position:absolute;
+      width:520px;
+      height:520px;
+      border-radius:999px;
+      filter:blur(70px);
+      opacity:.35;
+      pointer-events:none;
+    }
+    .blob-1{ background:rgba(28,69,244,.40); top:-240px; left:-240px; }
+    .blob-2{ background:rgba(255,210,63,.35); bottom:-280px; right:-220px; }
+    .blob-3{ background:rgba(28,69,244,.18); top:40px; right:-220px; }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:.6rem;
+      padding:.45rem .9rem;
+      border-radius:999px;
+      background:rgba(255,255,255,.85);
+      border:1px solid rgba(199,208,255,.9);
+      color:var(--ink-mid);
+      font-weight:500;
+      font-size:.92rem;
+      box-shadow:0 12px 28px rgba(10,14,26,.08);
+    }
+    .badge .dot{
+      width:8px; height:8px;
+      border-radius:999px;
+      background:var(--blue);
+      box-shadow:0 0 0 4px rgba(28,69,244,.12);
+    }
+    .hero .badge{
+      background:transparent;
+      border:1px solid rgba(199,208,255,.95);
+      box-shadow:none;
+    }
+    .hero .badge .dot{
+      background:transparent;
+      border:1.5px solid rgba(28,69,244,.45);
+      box-shadow:none;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:0;
+      align-items:center;
+      position:relative;
+      z-index:2;
+    }
+    .hero-copy{ padding:18px 0; max-width:720px; }
+    .hero-title{
+      margin-top:16px;
+      font-size:clamp(2.2rem, 3.6vw, 3.05rem);
+      line-height:1.08;
+      font-weight:800;
+      font-stretch:normal;
+      letter-spacing:-0.025em;
+    }
+    .hero-ctas{
+      display:flex;
+      gap:12px;
+      margin-top:26px;
+      flex-wrap:wrap;
+    }
+
+    .stats{
+      margin-top:26px;
+      background:rgba(255,255,255,.92);
+      border:1px solid rgba(199,208,255,.95);
+      border-radius:24px;
+      box-shadow:var(--shadow-soft);
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      overflow:hidden;
+    }
+    .stat{
+      padding:18px 16px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .stat + .stat{ border-left:1px solid rgba(199,208,255,.75); }
+    .stat strong{
+      font-size:1.05rem;
+      color:var(--ink);
+      font-weight:500;
+    }
+    .stat span{
+      font-size:.9rem;
+      color:var(--ink-light);
+      font-weight:400;
+    }
+
+    /* Fade-up animation */
+    .fade-up{
+      opacity:0;
+      transform:translateY(14px);
+      animation:fadeUp .7s ease forwards;
+    }
+    @keyframes fadeUp{
+      to{ opacity:1; transform:translateY(0); }
+    }
+    .d1{ animation-delay:.08s; }
+    .d2{ animation-delay:.18s; }
+    .d3{ animation-delay:.28s; }
+    .d4{ animation-delay:.38s; }
+
+    /* Cards & grids */
+    .cards{
+      display:grid;
+      gap:18px;
+      margin-top:26px;
+    }
+    .card{
+      background:var(--white);
+      border:1px solid rgba(199,208,255,.9);
+      border-radius:var(--radius-card);
+      box-shadow:var(--shadow-card);
+      transition:transform .18s ease, box-shadow .18s ease;
+    }
+    .card:hover{ transform:translateY(-3px); box-shadow:0 18px 50px rgba(10,14,26,.12); }
+
+    /* How it works carousel */
+    .steps-wrap{
+      margin-top:28px;
+      position:relative;
+    }
+    .steps-nav{
+      display:flex;
+      gap:10px;
+      justify-content:flex-end;
+      margin-bottom:10px;
+    }
+    .steps-nav .btn{
+      padding:.55rem .85rem;
+      border-radius:14px;
+    }
+    .steps{
+      display:flex;
+      gap:14px;
+      overflow-x:auto;
+      scroll-snap-type:x mandatory;
+      scroll-padding:8px;
+      padding:8px;
+      margin:-8px;
+      -webkit-overflow-scrolling:touch;
+    }
+    .steps::-webkit-scrollbar{ height:10px; }
+    .steps::-webkit-scrollbar-thumb{
+      background:rgba(199,208,255,.9);
+      border-radius:999px;
+      border:3px solid rgba(255,255,255,.9);
+    }
+    .step{
+      position:relative;
+      padding:18px 16px 16px;
+      background:var(--white);
+      border:1px solid rgba(199,208,255,.9);
+      border-radius:20px;
+      box-shadow:var(--shadow-card);
+      transition:transform .18s ease, box-shadow .18s ease;
+      min-height:172px;
+      flex:0 0 300px;
+      scroll-snap-align:start;
+    }
+    .step:hover{ transform:translateY(-3px); box-shadow:0 18px 50px rgba(10,14,26,.12); }
+    .step .num{
+      width:36px; height:36px;
+      border-radius:999px;
+      background:var(--blue-pale);
+      border:1px solid rgba(28,69,244,.22);
+      color:var(--blue);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      font-family:"Syne", system-ui, -apple-system, Segoe UI, sans-serif;
+      letter-spacing:-0.02em;
+      margin-bottom:12px;
+    }
+    .step h3{ margin-bottom:8px; }
+    .step p{ margin:0; color:var(--ink-mid); font-weight:400; font-size:.96rem; }
+
+    .highlight-box{
+      margin-top:22px;
+      border-radius:22px;
+      padding:18px 18px;
+      background:linear-gradient(180deg, rgba(28,69,244,.95), rgba(28,69,244,.88));
+      color:var(--white);
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:0 18px 55px rgba(28,69,244,.24);
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+    }
+    .highlight-box .mark{
+      width:34px; height:34px;
+      border-radius:12px;
+      background:rgba(255,255,255,.16);
+      border:1px solid rgba(255,255,255,.20);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex:0 0 34px;
+    }
+    .highlight-box p{ margin:0; font-weight:400; color:rgba(255,255,255,.92); }
+
+    /* Packs */
+    .pack-grid{
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:18px;
+      margin-top:26px;
+      align-items:stretch;
+    }
+    .pack{
+      overflow:hidden;
+      border-radius:24px;
+    }
+    .pack-header{
+      padding:18px 18px 16px;
+      color:var(--white);
+      position:relative;
+    }
+    .pack-header.dark{ background:linear-gradient(180deg, rgba(10,14,26,.98), rgba(10,14,26,.92)); }
+    .pack-header.blue{ background:linear-gradient(180deg, rgba(28,69,244,.98), rgba(28,69,244,.90)); }
+    .pack-header .top{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:10px;
+    }
+    .pack-header .name{
+      font-family:"Syne", system-ui, -apple-system, Segoe UI, sans-serif;
+      font-weight:800;
+      letter-spacing:-0.03em;
+      font-size:1.35rem;
+    }
+    .pack-header .sub{
+      margin-top:6px;
+      color:rgba(255,255,255,.78);
+      font-weight:400;
+    }
+    .pack-header .popular{
+      display:inline-flex;
+      align-items:center;
+      gap:.45rem;
+      padding:.38rem .65rem;
+      background:rgba(255,255,255,.16);
+      border:1px solid rgba(255,255,255,.22);
+      border-radius:999px;
+      font-size:.8rem;
+      color:rgba(255,255,255,.92);
+      white-space:nowrap;
+    }
+    .pack-header.blue .popular{ color:var(--yellow); border-color:rgba(255,210,63,.55); }
+    .pack-body{ padding:18px 18px 20px; background:var(--white); }
+    .price{
+      display:flex;
+      align-items:baseline;
+      gap:8px;
+      margin:0 0 14px 0;
+    }
+    .price strong{ font-size:1.6rem; letter-spacing:-0.02em; }
+    .price span{ color:var(--ink-light); font-size:.95rem; }
+    .features{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
+    .features li{ display:flex; gap:10px; align-items:flex-start; color:var(--ink-mid); }
+    .features .check{
+      width:18px; height:18px;
+      border-radius:999px;
+      background:rgba(28,69,244,.10);
+      border:1px solid rgba(28,69,244,.22);
+      color:var(--blue);
+      flex:0 0 18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-top:2px;
+      font-weight:700;
+    }
+    .pack-actions{ margin-top:18px; }
+
+    /* Pricing table */
+    .table-wrap{
+      margin-top:22px;
+      border-radius:24px;
+      border:1px solid rgba(199,208,255,.9);
+      overflow:hidden;
+      background:var(--white);
+      box-shadow:var(--shadow-card);
+    }
+    .table-scroll{
+      overflow:auto;
+      -webkit-overflow-scrolling:touch;
+    }
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      min-width:760px;
+    }
+    thead th{
+      background:var(--blue);
+      color:var(--white);
+      text-align:left;
+      padding:14px 14px;
+      font-weight:500;
+      font-size:.92rem;
+      border-bottom:1px solid rgba(255,255,255,.18);
+    }
+    tbody td{
+      padding:14px 14px;
+      border-bottom:1px solid rgba(199,208,255,.75);
+      color:var(--ink-mid);
+      font-size:.95rem;
+    }
+    tbody tr:nth-child(even) td{ background:rgba(245,247,255,.65); }
+    tbody tr:last-child td{ border-bottom:none; }
+    .gcol{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-weight:500;
+      color:var(--ink);
+    }
+    .g-ok{
+      width:20px; height:20px;
+      border-radius:999px;
+      background:rgba(19,171,95,.12);
+      border:1px solid rgba(19,171,95,.25);
+      color:#13AB5F;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      font-size:.95rem;
+    }
+    .g-no{
+      width:20px; height:20px;
+      border-radius:999px;
+      background:rgba(210,54,71,.10);
+      border:1px solid rgba(210,54,71,.22);
+      color:#D23647;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      font-size:.95rem;
+    }
+    .note{ margin-top:12px; color:var(--ink-light); font-size:.95rem; }
+
+    /* Guarantee section */
+    .dark{
+      background:var(--ink);
+      color:var(--white);
+    }
+    .dark .lead{ color:rgba(255,255,255,.72); }
+    .two-col{
+      margin-top:26px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+    .tone-card{
+      border-radius:22px;
+      padding:18px 18px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.06);
+    }
+    .tone-card h3{ margin-bottom:12px; }
+    .tone-card ul{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px; }
+    .tone-card li{ display:flex; gap:10px; align-items:flex-start; color:rgba(255,255,255,.78); }
+    .tone-card .dot{
+      width:10px; height:10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.35);
+      margin-top:7px;
+      flex:0 0 10px;
+    }
+    .tone-card.good{
+      background:rgba(19,171,95,.10);
+      border-color:rgba(19,171,95,.24);
+    }
+    .tone-card.good .dot{ background:rgba(19,171,95,.85); }
+    .tone-card.bad{
+      background:rgba(210,54,71,.10);
+      border-color:rgba(210,54,71,.22);
+    }
+    .tone-card.bad .dot{ background:rgba(210,54,71,.85); }
+    .dark .fineprint{
+      margin-top:14px;
+      color:rgba(255,255,255,.70);
+      font-size:.95rem;
+    }
+
+    /* Universities */
+    .uni-grid{
+      margin-top:26px;
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:14px;
+    }
+    .uni-card{
+      padding:18px 16px;
+      border-radius:20px;
+      background:var(--white);
+      border:1px solid rgba(199,208,255,.9);
+      box-shadow:var(--shadow-card);
+      transition:transform .18s ease, box-shadow .18s ease;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
+      min-height:94px;
+    }
+    .uni-card:hover{ transform:translateY(-3px); box-shadow:0 18px 50px rgba(10,14,26,.12); }
+    .uni-name{ font-weight:500; color:var(--ink); }
+    .uni-city{ color:var(--ink-light); margin-top:4px; font-size:.95rem; }
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:.34rem .62rem;
+      border-radius:999px;
+      font-size:.82rem;
+      font-weight:500;
+      white-space:nowrap;
+      border:1px solid rgba(199,208,255,.9);
+      background:rgba(245,247,255,.65);
+      color:var(--ink-mid);
+    }
+    .tag.live{
+      border-color:rgba(28,69,244,.35);
+      background:rgba(28,69,244,.10);
+      color:var(--blue);
+    }
+    .tag .live-dot{
+      width:8px; height:8px;
+      border-radius:999px;
+      background:var(--blue);
+      box-shadow:0 0 0 4px rgba(28,69,244,.12);
+    }
+
+    /* Application */
+    .toggle{
+      margin-top:18px;
+      display:inline-flex;
+      padding:6px;
+      border-radius:999px;
+      border:1px solid rgba(199,208,255,.95);
+      background:rgba(255,255,255,.85);
+      box-shadow:var(--shadow-card);
+      gap:6px;
+    }
+    .toggle button{
+      padding:.62rem 1rem;
+      border-radius:999px;
+      border:0;
+      background:transparent;
+      cursor:pointer;
+      font-weight:500;
+      color:var(--ink-mid);
+      transition:background .18s ease, color .18s ease;
+    }
+    .toggle button[aria-pressed="true"]{
+      background:var(--blue);
+      color:var(--white);
+    }
+    .toggle .toggle-radio{
+      position:absolute;
+      width:1px; height:1px;
+      padding:0; margin:-1px;
+      overflow:hidden; clip:rect(0,0,0,0);
+      white-space:nowrap; border:0;
+    }
+    .toggle .toggle-label{
+      padding:.62rem 1rem;
+      border-radius:999px;
+      border:0;
+      background:transparent;
+      cursor:pointer;
+      font-weight:500;
+      color:var(--ink-mid);
+      transition:background .18s ease, color .18s ease;
+      user-select:none;
+    }
+    .toggle .toggle-radio:focus-visible + .toggle-label{
+      outline:3px solid rgba(28,69,244,.28);
+      outline-offset:2px;
+    }
+    .toggle .toggle-radio:checked + .toggle-label{
+      background:var(--blue);
+      color:var(--white);
+    }
+    .form-shell{
+      margin-top:18px;
+      border-radius:24px;
+      border:1px solid rgba(199,208,255,.95);
+      background:rgba(255,255,255,.9);
+      box-shadow:var(--shadow-soft);
+      overflow:hidden;
+    }
+    form{ margin:0; }
+    .form-grid{
+      padding:18px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+    .field{ display:flex; flex-direction:column; gap:7px; }
+    .field.full{ grid-column:1 / -1; }
+    label{
+      font-size:.86rem;
+      color:var(--ink-light);
+      font-weight:500;
+    }
+    input, select, textarea{
+      width:100%;
+      padding:.78rem .9rem;
+      border-radius:10px;
+      border:1px solid rgba(199,208,255,.95);
+      background:var(--white);
+      color:var(--ink);
+      outline:none;
+      transition:border-color .18s ease, box-shadow .18s ease;
+    }
+    textarea{ min-height:110px; resize:vertical; }
+    input:focus, select:focus, textarea:focus{
+      border-color:rgba(28,69,244,.9);
+      box-shadow:0 0 0 4px rgba(28,69,244,.14);
+    }
+    .error input, .error select, .error textarea{
+      border-color:rgba(210,54,71,.9);
+      box-shadow:0 0 0 4px rgba(210,54,71,.12);
+    }
+    .error-msg{
+      display:none;
+      color:#D23647;
+      font-size:.86rem;
+      margin-top:2px;
+    }
+    .error .error-msg{ display:block; }
+
+    .checks{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:10px;
+      padding:.2rem 0;
+    }
+    .checkline{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      border:1px solid rgba(199,208,255,.75);
+      border-radius:12px;
+      padding:10px 12px;
+      background:rgba(245,247,255,.65);
+    }
+    .checkline input{ width:auto; }
+    .checkline span{ color:var(--ink-mid); font-size:.95rem; }
+
+    .form-actions{
+      padding:16px 18px 18px;
+      border-top:1px solid rgba(199,208,255,.75);
+      background:rgba(245,247,255,.55);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .form-actions .small{
+      color:var(--ink-light);
+      font-size:.92rem;
+    }
+    .success{
+      padding:26px 18px;
+      display:none;
+    }
+    .success-inner{
+      border-radius:22px;
+      border:1px solid rgba(19,171,95,.30);
+      background:rgba(19,171,95,.10);
+      padding:18px 18px;
+      color:var(--ink);
+    }
+    .success-inner strong{ display:block; margin-bottom:6px; }
+    .success-inner p{ margin:0; color:var(--ink-mid); }
+
+    /* Footer */
+    footer{
+      border-top:1px solid rgba(199,208,255,.9);
+      padding:26px 0;
+      background:var(--white);
+    }
+    .foot-top{
+      display:grid;
+      grid-template-columns:1fr auto 1fr;
+      align-items:center;
+      gap:14px;
+    }
+    .foot-links{
+      display:flex;
+      gap:18px;
+      justify-content:center;
+      flex-wrap:wrap;
+      color:var(--ink-mid);
+      font-weight:500;
+    }
+    .foot-links a{ padding:6px 8px; border-radius:10px; }
+    .foot-links a:hover{ background:var(--blue-pale); color:var(--ink); }
+    .foot-right{ text-align:right; color:var(--ink-light); font-weight:500; }
+    .foot-bottom{
+      margin-top:18px;
+      color:var(--ink-light);
+      font-size:.92rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .steps{ grid-template-columns:1fr; }
+      .step{ min-height:auto; }
+      .pack-grid{ grid-template-columns:1fr; }
+      .two-col{ grid-template-columns:1fr; }
+      .uni-grid{ grid-template-columns:repeat(2, 1fr); }
+      .stats{ grid-template-columns:repeat(2, 1fr); }
+      .stat:nth-child(3){ border-left:none; border-top:1px solid rgba(199,208,255,.75); }
+      .stat:nth-child(4){ border-top:1px solid rgba(199,208,255,.75); }
+    }
+    @media (max-width: 760px){
+      .nav-links{ display:none; }
+      .nav-cta .btn{ display:none; }
+      .hamburger{ display:inline-flex; }
+      .nav-open .mobile-menu{ display:block; }
+      .section{ padding:72px 0; }
+      .form-grid{ grid-template-columns:1fr; }
+      .checks{ grid-template-columns:1fr; }
+      .uni-grid{ grid-template-columns:1fr; }
+      .foot-top{ grid-template-columns:1fr; }
+      .foot-right{ text-align:left; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      html{ scroll-behavior:auto; }
+      .fade-up{ animation:none; opacity:1; transform:none; }
+      .card, .step, .uni-card, .btn{ transition:none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <header class="nav" id="top">
+    <div class="container">
+      <div class="nav-inner" role="navigation" aria-label="Primary">
+        <a class="logo" href="#top" aria-label="SwissTutor home">
+          <span class="swiss">Swiss</span><span class="tutor">Tutor</span>
+        </a>
+
+        <nav class="nav-links" aria-label="Sections">
+          <a href="#how">How it works</a>
+          <a href="#packs">Our packs</a>
+          <a href="#universities">Universities</a>
+          <a href="#apply">Apply</a>
+        </nav>
+
+        <div class="nav-cta">
+          <a class="btn primary" href="#apply">Apply now</a>
+          <button class="hamburger" id="hamburger" aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false">
+            <span class="hamburger-lines" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu" aria-label="Mobile menu">
+      <div class="container">
+        <a href="#how" data-close-menu>How it works</a>
+        <a href="#packs" data-close-menu>Our packs</a>
+        <a href="#universities" data-close-menu>Universities</a>
+        <a href="#apply" data-close-menu>Apply</a>
+        <a class="btn primary" href="#apply" data-close-menu style="width:100%; margin-top:6px;">Apply now</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main>
+    <section class="hero surface" aria-label="Hero">
+      <div class="bg-blob blob-1" aria-hidden="true"></div>
+      <div class="bg-blob blob-2" aria-hidden="true"></div>
+      <div class="bg-blob blob-3" aria-hidden="true"></div>
+
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <div class="badge fade-up d1">
+              <span class="dot" aria-hidden="true"></span>
+              <span>Now enrolling &middot; HSG St. Gallen</span>
+            </div>
+
+            <h1 class="h-font h1 hero-title fade-up d2">
+              The earlier you start, the better your chances.
+            </h1>
+
+              <p class="lead fade-up d3">
+              Structured tutoring programmes for Swiss university students - with a money-back guarantee.
+            </p>
+
+            <div class="hero-ctas fade-up d4">
+              <a class="btn primary" href="#apply" id="ctaStudent">Apply as a student</a>
+              <button class="btn outline" type="button" id="ctaTutor">Become a tutor</button>
+            </div>
+
+            <div class="stats fade-up d4" style="animation-delay:.48s;">
+              <div class="stat">
+                <strong>Tutor match</strong>
+                <span>Tutors who recently passed your exam</span>
+              </div>
+              <div class="stat">
+                <strong>CHF 189</strong>
+                <span>Starting from per month</span>
+              </div>
+              <div class="stat">
+                <strong>HSG</strong>
+                <span>Launch phase</span>
+              </div>
+              <div class="stat">
+                <strong>Money-back</strong>
+                <span>If you fail (grade below 4.0)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section" id="how" aria-label="How it works">
+      <div class="container">
+        <span class="label">How it works</span>
+        <h2 class="h-font h2" style="margin-top:12px;">A system designed to make you pass</h2>
+        <p class="lead">
+          SwissTutor is not just tutoring. It is a structured academic programme with built-in accountability at every step.
+        </p>
+
+        <div class="steps-wrap" aria-label="How it works steps">
+          <div class="steps-nav" aria-label="Step navigation">
+            <button class="btn outline" type="button" id="stepsPrev" aria-label="Previous step">Previous</button>
+            <button class="btn outline" type="button" id="stepsNext" aria-label="Next step">Next</button>
+          </div>
+          <div class="steps" id="steps" role="list">
+          <div class="step" role="listitem">
+            <div class="num">1</div>
+            <h3 class="h-font h3">Set your target</h3>
+            <p>Define your goal grade before starting. This is your benchmark.</p>
+          </div>
+          <div class="step" role="listitem">
+            <div class="num">2</div>
+            <h3 class="h-font h3">Get matched</h3>
+            <p>We assign you a peer tutor who successfully passed the exam in your exact course - with the same syllabus and exam style.</p>
+          </div>
+          <div class="step" role="listitem">
+            <div class="num">3</div>
+            <h3 class="h-font h3">Weekly sessions</h3>
+            <p>1 or 2 tutoring sessions per week, structured around your weak points.</p>
+          </div>
+          <div class="step" role="listitem">
+            <div class="num">4</div>
+            <h3 class="h-font h3">Weekly assignments &amp; mock exams</h3>
+            <p>Receive tailored assignments every week and sit a full mock exam every two weeks. Track your progress objectively.</p>
+          </div>
+          <div class="step" role="listitem">
+            <div class="num">5</div>
+            <h3 class="h-font h3">Adaptive intensity</h3>
+            <p>If your mock results fall below your target trajectory, we increase the workload. You must accept this to keep the money-back guarantee.</p>
+          </div>
+          </div>
+        </div>
+
+        <div class="highlight-box" role="note" aria-label="Programme promise">
+          <div class="mark" aria-hidden="true">&#10003;</div>
+          <p>If you do the work, you pass. If you do the work and still score below 4.0 at HSG, we refund CHF 100.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PACKS -->
+    <section class="section surface" id="packs" aria-label="Our packs">
+      <div class="container">
+        <span class="label">Our packs</span>
+        <h2 class="h-font h2" style="margin-top:12px;">Choose your programme</h2>
+        <p class="lead">
+          All packs include weekly assignments, mock exams every two weeks, and a verified peer tutor. Price depends on session frequency.
+        </p>
+
+        <div class="pack-grid">
+          <article class="card pack" aria-label="Essential pack">
+            <div class="pack-header dark">
+              <div class="top">
+                <div>
+                  <div class="name">Essential</div>
+                  <div class="sub">1 session per week</div>
+                </div>
+              </div>
+            </div>
+            <div class="pack-body">
+              <p class="price"><strong>CHF 189</strong><span>/month &middot; standard</span></p>
+              <ul class="features">
+                <li><span class="check" aria-hidden="true">&#10003;</span><span>1 tutoring session per week with a verified peer tutor</span></li>
+                <li><span class="check" aria-hidden="true">&#10003;</span><span>Weekly assignments tailored to your course syllabus</span></li>
+                <li><span class="check" aria-hidden="true">&#10003;</span><span>Full mock exam every 2 weeks with corrections</span></li>
+                <li><span class="check" aria-hidden="true">&#10003;</span><span>Progress tracking across all mock exams</span></li>
+                <li><span class="check" aria-hidden="true">&#10003;</span><span>Money-back guarantee (conditions apply)</span></li>
+              </ul>
+              <div class="pack-actions">
+                <a class="btn outline full" href="#apply" data-pack="Essential CHF 189">Apply for this pack</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card pack" aria-label="Intensive pack">
+            <div class="pack-header blue">
+              <div class="top">
+                <div>
+                  <div class="name">Intensive</div>
+                  <div class="sub">2 sessions per week</div>
+                </div>
+              </div>
+            </div>
+            <div class="pack-body">
+              <p class="price"><strong>CHF 369</strong><span>/month &middot; standard</span></p>
+              <ul class="features">
+                <li><span class="check" aria-hidden="true">&#10003;</span><span>2 tutoring sessions per week with a verified peer tutor</span></li>
+                <li><span class="check" aria-hidden="true">&#10003;</span><span>Weekly assignments tailored to your course syllabus</span></li>
+                <li><span class="check" aria-hidden="true">&#10003;</span><span>Full mock exam every 2 weeks with corrections</span></li>
+                <li><span class="check" aria-hidden="true">&#10003;</span><span>Progress tracking across all mock exams</span></li>
+                <li><span class="check" aria-hidden="true">&#10003;</span><span>Money-back guarantee (conditions apply)</span></li>
+              </ul>
+              <div class="pack-actions">
+                <a class="btn primary full" href="#apply" data-pack="Intensive CHF 369">Apply for this pack</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <p class="note" style="margin-top:22px;">Tutor sessions are conducted in person or online depending on availability.</p>
+      </div>
+    </section>
+
+    <!-- GUARANTEE -->
+    <section class="section dark" id="guarantee" aria-label="Money-back guarantee">
+      <div class="container">
+        <span class="label yellow">Our guarantee</span>
+        <h2 class="h-font h2" style="margin-top:12px; color:var(--white);">We put our money where our mouth is</h2>
+        <p class="lead">
+          If you complete all your assignments, attend all your sessions, pass all your mock exams - and still score below 4.0 at HSG - we refund CHF 100. No questions asked.
+        </p>
+
+        <div class="two-col">
+          <div class="tone-card good">
+            <h3 class="h-font h3" style="color:var(--white);">You keep the guarantee if:</h3>
+            <ul>
+              <li><span class="dot" aria-hidden="true"></span><span>You submit 100% of weekly assignments on time</span></li>
+              <li><span class="dot" aria-hidden="true"></span><span>You attend all tutoring sessions (or cancel 24h in advance)</span></li>
+              <li><span class="dot" aria-hidden="true"></span><span>You complete every mock exam before the deadline</span></li>
+              <li><span class="dot" aria-hidden="true"></span><span>You accept increased sessions if your mock scores require it</span></li>
+            </ul>
+          </div>
+          <div class="tone-card bad">
+            <h3 class="h-font h3" style="color:var(--white);">You lose the guarantee if:</h3>
+            <ul>
+              <li><span class="dot" aria-hidden="true"></span><span>You miss more than 1 assignment per month</span></li>
+              <li><span class="dot" aria-hidden="true"></span><span>You skip a session without 24h notice more than once</span></li>
+              <li><span class="dot" aria-hidden="true"></span><span>You refuse a recommended increase in workload</span></li>
+              <li><span class="dot" aria-hidden="true"></span><span>You do not complete a mock exam</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="fineprint">The guarantee exists for students who work hard. Not as a shortcut.</p>
+      </div>
+    </section>
+
+    <!-- UNIVERSITIES -->
+    <section class="section surface" id="universities" aria-label="Universities">
+      <div class="container">
+        <div class="uni-grid">
+          <div class="uni-card" role="group" aria-label="HSG St. Gallen">
+            <div>
+              <div class="uni-name">HSG</div>
+              <div class="uni-city">St. Gallen</div>
+            </div>
+            <div class="tag live"><span class="live-dot" aria-hidden="true"></span><span>Live</span></div>
+          </div>
+          <div class="uni-card" role="group" aria-label="ETH Zurich">
+            <div>
+              <div class="uni-name">ETH Zurich</div>
+              <div class="uni-city">Zurich</div>
+            </div>
+            <div class="tag"><span>Coming soon</span></div>
+          </div>
+          <div class="uni-card" role="group" aria-label="EPFL Lausanne">
+            <div>
+              <div class="uni-name">EPFL</div>
+              <div class="uni-city">Lausanne</div>
+            </div>
+            <div class="tag"><span>Coming soon</span></div>
+          </div>
+          <div class="uni-card" role="group" aria-label="UNIGE Geneva">
+            <div>
+              <div class="uni-name">UNIGE</div>
+              <div class="uni-city">Geneva</div>
+            </div>
+            <div class="tag"><span>Coming soon</span></div>
+          </div>
+          <div class="uni-card" role="group" aria-label="UNIFR Fribourg">
+            <div>
+              <div class="uni-name">UNIFR</div>
+              <div class="uni-city">Fribourg</div>
+            </div>
+            <div class="tag"><span>Coming soon</span></div>
+          </div>
+          <div class="uni-card" role="group" aria-label="UNINE Neuchatel">
+            <div>
+              <div class="uni-name">UNINE</div>
+              <div class="uni-city">Neuchatel</div>
+            </div>
+            <div class="tag"><span>Coming soon</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- APPLICATION -->
+    <section class="section" id="apply" aria-label="Apply">
+      <div class="container">
+        <span class="label">Join SwissTutor</span>
+        <h2 class="h-font h2" style="margin-top:12px;">Apply now</h2>
+        <p class="lead">Fill in the form below and we will get back to you within 48 hours.</p>
+
+        <div class="form-shell">
+          <div class="success" id="successBox" role="status" aria-live="polite">
+            <div class="success-inner">
+              <strong>Thank you for your application — we will get back to you within 48 hours.</strong>
+            </div>
+          </div>
+
+          <form id="applicationForm" action="https://formspree.io/f/mrejbkrz" method="POST" novalidate>
+            <div class="form-grid" aria-label="Application form">
+              <div class="field full">
+                <label>What are you applying as?</label>
+                <div class="toggle" role="radiogroup" aria-label="Applicant type">
+                  <input class="toggle-radio" type="radio" id="applicant_student" name="applicant_type" value="student" checked />
+                  <label class="toggle-label" for="applicant_student">I am a student</label>
+                  <input class="toggle-radio" type="radio" id="applicant_tutor" name="applicant_type" value="tutor" />
+                  <label class="toggle-label" for="applicant_tutor">I am a tutor</label>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="first_last_name">First and last name</label>
+                <input id="first_last_name" name="first_last_name" type="text" autocomplete="name" required />
+                <div class="error-msg">Please enter your first and last name.</div>
+              </div>
+              <div class="field">
+                <label for="university_email">University email</label>
+                <input id="university_email" name="university_email" type="email" placeholder="your@student.unisg.ch" autocomplete="email" required />
+                <div class="error-msg">Please enter a valid university email address.</div>
+              </div>
+              <div class="field">
+                <label for="phone_whatsapp">Phone number / WhatsApp</label>
+                <input id="phone_whatsapp" name="phone_whatsapp" type="tel" autocomplete="tel" />
+              </div>
+              <div class="field">
+                <label for="university">University</label>
+                <select id="university" name="university" required>
+                  <option value="">Select…</option>
+                  <option>HSG</option>
+                  <option>ETH Zurich</option>
+                  <option>EPFL</option>
+                  <option>UNIGE</option>
+                  <option>UNIFR</option>
+                  <option>UNINE</option>
+                  <option>Other</option>
+                </select>
+                <div class="error-msg">Please select your university.</div>
+              </div>
+              <div class="field">
+                <label for="year_of_study">Year of study</label>
+                <input id="year_of_study" name="year_of_study" type="text" />
+              </div>
+
+              <fieldset id="studentFields" class="field full" style="border:0; padding:0; margin:0;">
+                <div class="form-grid" style="padding:0; grid-template-columns:1fr 1fr;">
+                  <div class="field">
+                    <label for="course_preparing">Course you are preparing</label>
+                    <input id="course_preparing" name="course_preparing" type="text" />
+                  </div>
+                  <div class="field">
+                    <label for="exam_date">Exam date</label>
+                    <input id="exam_date" name="exam_date" type="date" />
+                  </div>
+                  <div class="field full">
+                    <label for="weak_points">Weak points in this course</label>
+                    <textarea id="weak_points" name="weak_points"></textarea>
+                  </div>
+                  <div class="field">
+                    <label for="hours_per_week">Available hours per week</label>
+                    <input id="hours_per_week" name="hours_per_week" type="text" inputmode="numeric" />
+                  </div>
+                  <div class="field">
+                    <label for="current_estimated_grade">Current estimated grade</label>
+                    <input id="current_estimated_grade" name="current_estimated_grade" type="text" inputmode="decimal" />
+                  </div>
+                  <div class="field">
+                    <label for="target_grade">Target grade</label>
+                    <input id="target_grade" name="target_grade" type="text" inputmode="decimal" />
+                  </div>
+                  <div class="field">
+                    <label for="previous_tutoring_experience">Previous tutoring experience</label>
+                    <input id="previous_tutoring_experience" name="previous_tutoring_experience" type="text" />
+                  </div>
+                  <div class="field full">
+                    <label>Your availability</label>
+                    <div class="checks" role="group" aria-label="Availability checkboxes">
+                      <label class="checkline"><input type="checkbox" name="availability" value="Weekday mornings" /> <span>Weekday mornings</span></label>
+                      <label class="checkline"><input type="checkbox" name="availability" value="Weekday afternoons" /> <span>Weekday afternoons</span></label>
+                      <label class="checkline"><input type="checkbox" name="availability" value="Weekday evenings" /> <span>Weekday evenings</span></label>
+                      <label class="checkline"><input type="checkbox" name="availability" value="Weekends" /> <span>Weekends</span></label>
+                    </div>
+                  </div>
+                  <div class="field full">
+                    <label for="chosen_pack">Chosen pack</label>
+                    <select id="chosen_pack" name="chosen_pack">
+                      <option value="">Select…</option>
+                      <option>Essential CHF 189</option>
+                      <option>Intensive CHF 369</option>
+                    </select>
+                  </div>
+                </div>
+              </fieldset>
+
+              <fieldset id="tutorFields" class="field full" style="border:0; padding:0; margin:0; display:none;">
+                <div class="form-grid" style="padding:0; grid-template-columns:1fr 1fr;">
+                  <div class="field">
+                    <label for="course_can_tutor">Course you can tutor</label>
+                    <input id="course_can_tutor" name="course_can_tutor" type="text" />
+                  </div>
+                  <div class="field">
+                    <label for="grade_obtained">Grade obtained in this course</label>
+                    <input id="grade_obtained" name="grade_obtained" type="text" inputmode="decimal" />
+                  </div>
+                  <div class="field">
+                    <label for="semester_passed">Semester when you passed the exam</label>
+                    <input id="semester_passed" name="semester_passed" type="text" />
+                  </div>
+                  <div class="field">
+                    <label for="max_sessions_per_week">Maximum sessions per week</label>
+                    <input id="max_sessions_per_week" name="max_sessions_per_week" type="text" inputmode="numeric" />
+                  </div>
+                  <div class="field full">
+                    <label>Your availability</label>
+                    <div class="checks" role="group" aria-label="Availability checkboxes">
+                      <label class="checkline"><input type="checkbox" name="availability" value="Weekday mornings" /> <span>Weekday mornings</span></label>
+                      <label class="checkline"><input type="checkbox" name="availability" value="Weekday afternoons" /> <span>Weekday afternoons</span></label>
+                      <label class="checkline"><input type="checkbox" name="availability" value="Weekday evenings" /> <span>Weekday evenings</span></label>
+                      <label class="checkline"><input type="checkbox" name="availability" value="Weekends" /> <span>Weekends</span></label>
+                    </div>
+                  </div>
+                  <div class="field full">
+                    <label for="tutoring_experience">Tutoring experience</label>
+                    <textarea id="tutoring_experience" name="tutoring_experience"></textarea>
+                  </div>
+                  <div class="field full">
+                    <label for="key_points_to_succeed">Key points to succeed in this course</label>
+                    <textarea id="key_points_to_succeed" name="key_points_to_succeed"></textarea>
+                  </div>
+                  <div class="field full">
+                    <label>Preferred payment method</label>
+                    <div class="checks" role="group" aria-label="Payment method">
+                      <label class="checkline"><input type="radio" name="payment_method" value="twint" checked /> <span>Twint</span></label>
+                      <label class="checkline"><input type="radio" name="payment_method" value="iban" /> <span>IBAN</span></label>
+                    </div>
+                  </div>
+                  <div class="field full" id="ibanField" style="display:none;">
+                    <label for="iban">IBAN</label>
+                    <input id="iban" name="iban" type="text" autocomplete="off" />
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <div class="form-actions">
+              <button class="btn primary full" type="submit">Submit my application</button>
+              <div class="small">This form is used for initial screening. We will confirm details and scheduling by email.</div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer aria-label="Footer">
+    <div class="container">
+      <div class="foot-top">
+        <a class="logo" href="#top" aria-label="SwissTutor home (footer)">
+          <span class="swiss">Swiss</span><span class="tutor">Tutor</span>
+        </a>
+
+        <nav class="foot-links" aria-label="Footer links">
+          <a href="#how">How it works</a>
+          <a href="#packs">Our packs</a>
+          <a href="#universities">Universities</a>
+          <a href="#apply">Apply</a>
+        </nav>
+
+        <div class="foot-right">swisstutor.ch</div>
+      </div>
+
+      <div class="foot-bottom">(c) 2025 SwissTutor &middot; All rights reserved &middot; Launching at HSG, St. Gallen</div>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      const root = document.documentElement;
+      const body = document.body;
+
+      // #region agent log (debug)
+      function dbg(hypothesisId, location, message, data){
+        try{
+          fetch('http://127.0.0.1:7824/ingest/469c9e61-7947-4e97-978e-aab3aedbf80f',{
+            method:'POST',
+            headers:{'Content-Type':'application/json','X-Debug-Session-Id':'9bd76e'},
+            body:JSON.stringify({
+              sessionId:'9bd76e',
+              runId:'repro',
+              hypothesisId,
+              location,
+              message,
+              data,
+              timestamp:Date.now()
+            })
+          }).catch(()=>{});
+        }catch(_e){}
+      }
+      // #endregion
+
+      // Mobile nav toggle
+      const hamburger = document.getElementById('hamburger');
+      const mobileMenu = document.getElementById('mobileMenu');
+      function setNavOpen(open){
+        body.classList.toggle('nav-open', open);
+        hamburger.setAttribute('aria-expanded', String(open));
+        hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        // #region agent log (debug)
+        dbg('H1','index.html:nav','setNavOpen', { open });
+        // #endregion
+        if (open) {
+          mobileMenu.querySelector('a')?.focus();
+        } else {
+          hamburger.focus();
+        }
+      }
+      hamburger?.addEventListener('click', () => setNavOpen(!body.classList.contains('nav-open')));
+      mobileMenu?.addEventListener('click', (e) => {
+        const t = e.target;
+        if (t && t.matches && t.matches('[data-close-menu]')) setNavOpen(false);
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && body.classList.contains('nav-open')) setNavOpen(false);
+      });
+
+      // How it works carousel controls
+      const stepsEl = document.getElementById('steps');
+      const stepsPrev = document.getElementById('stepsPrev');
+      const stepsNext = document.getElementById('stepsNext');
+      function scrollSteps(dir){
+        if (!stepsEl) return;
+        const first = stepsEl.querySelector('.step');
+        const stepW = first ? (first.getBoundingClientRect().width + 14) : 320;
+        stepsEl.scrollBy({ left: dir * stepW, behavior:'smooth' });
+      }
+      stepsPrev?.addEventListener('click', () => scrollSteps(-1));
+      stepsNext?.addEventListener('click', () => scrollSteps(1));
+
+      // Application form (Formspree + dynamic fields)
+      const applicationForm = document.getElementById('applicationForm');
+      const successBox = document.getElementById('successBox');
+      const studentFields = document.getElementById('studentFields');
+      const tutorFields = document.getElementById('tutorFields');
+
+      function setControlsEnabled(container, enabled){
+        if (!container) return;
+        container.querySelectorAll('input, select, textarea, button').forEach((el) => {
+          // never disable applicant_type radios
+          if (el.name === 'applicant_type') return;
+          el.disabled = !enabled;
+        });
+      }
+
+      function setApplicantType(type){
+        const isStudent = type === 'student';
+        const studentRadio = document.getElementById('applicant_student');
+        const tutorRadio = document.getElementById('applicant_tutor');
+        if (studentRadio && tutorRadio) {
+          studentRadio.checked = isStudent;
+          tutorRadio.checked = !isStudent;
+        }
+        if (studentFields) studentFields.style.display = isStudent ? '' : 'none';
+        if (tutorFields) tutorFields.style.display = isStudent ? 'none' : '';
+        setControlsEnabled(studentFields, isStudent);
+        setControlsEnabled(tutorFields, !isStudent);
+        // Ensure tutor payment UI is consistent when toggling
+        setPaymentMethod(applicationForm?.querySelector('input[name="payment_method"]:checked')?.value || 'twint');
+        if (successBox) successBox.style.display = 'none';
+        // #region agent log (debug)
+        dbg('H2','index.html:apply','setApplicantType', { type });
+        // #endregion
+      }
+
+      function setPaymentMethod(method){
+        const ibanField = document.getElementById('ibanField');
+        const ibanInput = document.getElementById('iban');
+        const useIban = method === 'iban';
+        if (ibanField) ibanField.style.display = useIban ? '' : 'none';
+        if (ibanInput) {
+          ibanInput.required = useIban;
+          ibanInput.disabled = !useIban;
+          if (!useIban) ibanInput.value = '';
+        }
+      }
+
+      applicationForm?.querySelectorAll('input[name="payment_method"]').forEach((r) => {
+        r.addEventListener('change', () => setPaymentMethod(r.value));
+      });
+      setPaymentMethod('twint');
+
+      applicationForm?.querySelectorAll('input[name="applicant_type"]').forEach((r) => {
+        r.addEventListener('change', () => setApplicantType(r.value));
+      });
+      setApplicantType('student');
+
+      // CTA behaviour
+      const ctaTutor = document.getElementById('ctaTutor');
+      ctaTutor?.addEventListener('click', () => {
+        setApplicantType('tutor');
+        document.getElementById('apply')?.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+      const ctaStudent = document.getElementById('ctaStudent');
+      ctaStudent?.addEventListener('click', () => {
+        setApplicantType('student');
+      });
+
+      // Pack selection helpers
+      document.querySelectorAll('[data-pack]').forEach((el) => {
+        el.addEventListener('click', (e) => {
+          const pack = el.getAttribute('data-pack');
+          setApplicantType('student');
+          const select = document.getElementById('chosen_pack');
+          if (select && pack) {
+            // Map short labels to dropdown options where possible
+            const candidates = Array.from(select.options).map(o => o.value);
+            const preferred = candidates.find(v => v.startsWith(pack.split(' ')[0])) || pack;
+            select.value = candidates.includes(preferred) ? preferred : '';
+          }
+        });
+      });
+
+      // Validation utilities
+      function markError(fieldEl, message){
+        const wrap = fieldEl.closest('.field');
+        if (!wrap) return;
+        wrap.classList.add('error');
+        const msg = wrap.querySelector('.error-msg');
+        if (msg && message) msg.textContent = message;
+      }
+      function clearErrors(formEl){
+        if (!formEl) return;
+        formEl.querySelectorAll('.field.error').forEach(f => f.classList.remove('error'));
+      }
+      function isEmailLikelyUniversity(email){
+        if (!email) return false;
+        const v = String(email).trim().toLowerCase();
+        if (!v.includes('@') || v.endsWith('@')) return false;
+        // Light heuristic: disallow common personal domains for this initial UI.
+        const blocked = ['gmail.com','outlook.com','hotmail.com','icloud.com','yahoo.com','proton.me','protonmail.com'];
+        const domain = v.split('@').pop() || '';
+        if (blocked.includes(domain)) return false;
+        return true;
+      }
+      function normalizeGrade(v){
+        if (!v) return '';
+        return String(v).trim().replace(',', '.');
+      }
+
+      function showSuccess(){
+        if (applicationForm) applicationForm.style.display = 'none';
+        if (successBox) successBox.style.display = 'block';
+        // #region agent log (debug)
+        dbg('H3','index.html:apply','showSuccess', { successVisible: true });
+        // #endregion
+        successBox?.scrollIntoView({behavior:'smooth', block:'nearest'});
+      }
+
+      function validateApplication(){
+        clearErrors(applicationForm);
+        let ok = true;
+
+        const name = document.getElementById('first_last_name');
+        const email = document.getElementById('university_email');
+        const uni = document.getElementById('university');
+
+        if (!name.value.trim()){ ok = false; markError(name); }
+        if (!isEmailLikelyUniversity(email.value)){ ok = false; markError(email); }
+        if (!uni.value){ ok = false; markError(uni); }
+
+        return ok;
+      }
+
+      async function submitToFormspree(formEl){
+        const endpoint = formEl.getAttribute('action');
+        const fd = new FormData(formEl);
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          body: fd,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (!res.ok) {
+          let msg = 'Submission failed. Please try again.';
+          try {
+            const data = await res.json();
+            if (data && data.errors && data.errors.length) {
+              msg = data.errors.map(e => e.message).join(' ');
+            }
+          } catch {}
+          throw new Error(msg);
+        }
+      }
+
+      applicationForm?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!validateApplication()){
+          applicationForm.querySelector('.field.error input, .field.error select, .field.error textarea')?.focus();
+          return;
+        }
+        const btn = applicationForm.querySelector('button[type="submit"]');
+        if (btn) btn.disabled = true;
+        try {
+          await submitToFormspree(applicationForm);
+          showSuccess();
+        } catch (err) {
+          // #region agent log (debug)
+          dbg('H4','index.html:apply','submit.failed', { message: String(err?.message || err) });
+          // #endregion
+          alert(err?.message || 'Submission failed. Please try again.');
+          if (btn) btn.disabled = false;
+        }
+      });
+
+      // Close mobile menu on link navigation (desktop links too, as a safe default)
+      document.querySelectorAll('a[href^="#"]').forEach((a) => {
+        a.addEventListener('click', () => {
+          if (body.classList.contains('nav-open')) setNavOpen(false);
+        });
+      });
+
+      // #region agent log (debug)
+      dbg('H0','index.html:boot','pageLoaded', { href: location.href, readyState: document.readyState });
+      // #endregion
+    })();
+  </script>
+</body>
+</html>
