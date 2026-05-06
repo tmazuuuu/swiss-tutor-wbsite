@@ -9,7 +9,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
 
   <style>
     :root{
@@ -28,6 +28,7 @@
       --shadow-soft:0 18px 50px rgba(10,14,26,.10);
       --shadow-card:0 12px 30px rgba(10,14,26,.08);
       --max:1120px;
+      --heading-font:"Manrope", system-ui, -apple-system, Segoe UI, sans-serif;
     }
 
     *{ box-sizing:border-box; }
@@ -57,10 +58,10 @@
     /* Typography */
     h1,h2,h3{ margin:0; }
     .h-font{
-      font-family:"Syne", system-ui, -apple-system, Segoe UI, sans-serif;
+      font-family:var(--heading-font);
       /* Prevent synthetic stretching; slightly more condensed look */
       font-stretch:normal;
-      letter-spacing:-0.055em;
+      letter-spacing:-0.02em;
     }
     .h1{
       font-size:clamp(2.6rem, 5.2vw, 4.4rem);
@@ -153,7 +154,7 @@
       display:flex;
       align-items:baseline;
       gap:.05em;
-      font-family:"Syne", system-ui, -apple-system, Segoe UI, sans-serif;
+      font-family:var(--heading-font);
       font-weight:800;
       letter-spacing:-0.03em;
       font-size:1.25rem;
@@ -416,7 +417,7 @@
       align-items:center;
       justify-content:center;
       font-weight:700;
-      font-family:"Syne", system-ui, -apple-system, Segoe UI, sans-serif;
+      font-family:var(--heading-font);
       letter-spacing:-0.02em;
       margin-bottom:12px;
     }
@@ -473,7 +474,7 @@
       gap:10px;
     }
     .pack-header .name{
-      font-family:"Syne", system-ui, -apple-system, Segoe UI, sans-serif;
+      font-family:var(--heading-font);
       font-weight:800;
       letter-spacing:-0.03em;
       font-size:1.35rem;
@@ -944,7 +945,7 @@
             </h1>
 
               <p class="lead fade-up d3">
-              Structured tutoring programmes for Swiss university students - with a money-back guarantee.
+              Structured tutoring programmes for Swiss university students with a money-back guarantee.
             </p>
 
             <div class="hero-ctas fade-up d4">
@@ -958,8 +959,8 @@
                 <span>Tutors who recently passed your exam</span>
               </div>
               <div class="stat">
-                <strong>CHF 189</strong>
-                <span>Starting from per month</span>
+                <strong>CHF 30</strong>
+                <span>Starting from per week</span>
               </div>
               <div class="stat">
                 <strong>HSG</strong>
@@ -1007,13 +1008,13 @@
           </div>
           <div class="step" role="listitem">
             <div class="num">4</div>
-            <h3 class="h-font h3">Weekly assignments &amp; mock exams</h3>
-            <p>Receive tailored assignments every week and sit a full mock exam every two weeks. Track your progress objectively.</p>
+            <h3 class="h-font h3">Weekly preparation assignments</h3>
+            <p>Receive preparation assignments every week, tailored to your course syllabus.</p>
           </div>
           <div class="step" role="listitem">
             <div class="num">5</div>
             <h3 class="h-font h3">Adaptive intensity</h3>
-            <p>If your mock results fall below your target trajectory, we increase the workload. You must accept this to keep the money-back guarantee.</p>
+            <p>If your results fall below your target trajectory, we increase the workload. You must accept this to keep the money-back guarantee.</p>
           </div>
           </div>
         </div>
@@ -1031,7 +1032,7 @@
         <span class="label">Our packs</span>
         <h2 class="h-font h2" style="margin-top:12px;">Choose your programme</h2>
         <p class="lead">
-          All packs include weekly assignments, mock exams every two weeks, and a verified peer tutor. Price depends on session frequency.
+          All packs include preparation assignments and a verified peer tutor. Price depends on weekly intensity.
         </p>
 
         <div class="pack-grid">
@@ -1045,16 +1046,14 @@
               </div>
             </div>
             <div class="pack-body">
-              <p class="price"><strong>CHF 189</strong><span>/month &middot; standard</span></p>
+              <p class="price"><strong>CHF 30</strong><span>/week &middot; essential</span></p>
               <ul class="features">
-                <li><span class="check" aria-hidden="true">&#10003;</span><span>1 tutoring session per week with a verified peer tutor</span></li>
-                <li><span class="check" aria-hidden="true">&#10003;</span><span>Weekly assignments tailored to your course syllabus</span></li>
-                <li><span class="check" aria-hidden="true">&#10003;</span><span>Full mock exam every 2 weeks with corrections</span></li>
-                <li><span class="check" aria-hidden="true">&#10003;</span><span>Progress tracking across all mock exams</span></li>
+                <li><span class="check" aria-hidden="true">&#10003;</span><span>1 hour of tutoring per week with a verified peer tutor</span></li>
+                <li><span class="check" aria-hidden="true">&#10003;</span><span>Preparation assignments tailored to your course syllabus</span></li>
                 <li><span class="check" aria-hidden="true">&#10003;</span><span>Money-back guarantee (conditions apply)</span></li>
               </ul>
               <div class="pack-actions">
-                <a class="btn outline full" href="#apply" data-pack="Essential CHF 189">Apply for this pack</a>
+                <a class="btn outline full" href="#apply" data-pack="Essential CHF 30/week">Apply for this pack</a>
               </div>
             </div>
           </article>
@@ -1069,16 +1068,14 @@
               </div>
             </div>
             <div class="pack-body">
-              <p class="price"><strong>CHF 369</strong><span>/month &middot; standard</span></p>
+              <p class="price"><strong>CHF 60</strong><span>/week &middot; intensive</span></p>
               <ul class="features">
-                <li><span class="check" aria-hidden="true">&#10003;</span><span>2 tutoring sessions per week with a verified peer tutor</span></li>
-                <li><span class="check" aria-hidden="true">&#10003;</span><span>Weekly assignments tailored to your course syllabus</span></li>
-                <li><span class="check" aria-hidden="true">&#10003;</span><span>Full mock exam every 2 weeks with corrections</span></li>
-                <li><span class="check" aria-hidden="true">&#10003;</span><span>Progress tracking across all mock exams</span></li>
+                <li><span class="check" aria-hidden="true">&#10003;</span><span>2 hours of tutoring per week with a verified peer tutor</span></li>
+                <li><span class="check" aria-hidden="true">&#10003;</span><span>Preparation assignments tailored to your course syllabus</span></li>
                 <li><span class="check" aria-hidden="true">&#10003;</span><span>Money-back guarantee (conditions apply)</span></li>
               </ul>
               <div class="pack-actions">
-                <a class="btn primary full" href="#apply" data-pack="Intensive CHF 369">Apply for this pack</a>
+                <a class="btn primary full" href="#apply" data-pack="Intensive CHF 60/week">Apply for this pack</a>
               </div>
             </div>
           </article>
@@ -1094,7 +1091,7 @@
         <span class="label yellow">Our guarantee</span>
         <h2 class="h-font h2" style="margin-top:12px; color:var(--white);">We put our money where our mouth is</h2>
         <p class="lead">
-          If you complete all your assignments, attend all your sessions, pass all your mock exams - and still score below 4.0 at HSG - we refund CHF 100. No questions asked.
+          If you complete all your assignments, attend all your sessions, and still score below 4.0 at HSG, we refund CHF 100. No questions asked.
         </p>
 
         <div class="two-col">
@@ -1103,8 +1100,6 @@
             <ul>
               <li><span class="dot" aria-hidden="true"></span><span>You submit 100% of weekly assignments on time</span></li>
               <li><span class="dot" aria-hidden="true"></span><span>You attend all tutoring sessions (or cancel 24h in advance)</span></li>
-              <li><span class="dot" aria-hidden="true"></span><span>You complete every mock exam before the deadline</span></li>
-              <li><span class="dot" aria-hidden="true"></span><span>You accept increased sessions if your mock scores require it</span></li>
             </ul>
           </div>
           <div class="tone-card bad">
@@ -1112,8 +1107,6 @@
             <ul>
               <li><span class="dot" aria-hidden="true"></span><span>You miss more than 1 assignment per month</span></li>
               <li><span class="dot" aria-hidden="true"></span><span>You skip a session without 24h notice more than once</span></li>
-              <li><span class="dot" aria-hidden="true"></span><span>You refuse a recommended increase in workload</span></li>
-              <li><span class="dot" aria-hidden="true"></span><span>You do not complete a mock exam</span></li>
             </ul>
           </div>
         </div>
@@ -1262,20 +1255,29 @@
                     <input id="previous_tutoring_experience" name="previous_tutoring_experience" type="text" />
                   </div>
                   <div class="field full">
-                    <label>Your availability</label>
-                    <div class="checks" role="group" aria-label="Availability checkboxes">
-                      <label class="checkline"><input type="checkbox" name="availability" value="Weekday mornings" /> <span>Weekday mornings</span></label>
-                      <label class="checkline"><input type="checkbox" name="availability" value="Weekday afternoons" /> <span>Weekday afternoons</span></label>
-                      <label class="checkline"><input type="checkbox" name="availability" value="Weekday evenings" /> <span>Weekday evenings</span></label>
-                      <label class="checkline"><input type="checkbox" name="availability" value="Weekends" /> <span>Weekends</span></label>
+                    <label>Availability (student)</label>
+                    <div class="muted" style="margin-top:-4px; font-size:.92rem;">
+                      Propose us three times in the week where you would be available for sessions.
                     </div>
+                  </div>
+                  <div class="field">
+                    <label for="availability_slot_1">Availability option 1</label>
+                    <input id="availability_slot_1" name="availability_slot_1" type="text" placeholder="e.g. Tuesday 18:00–19:00" />
+                  </div>
+                  <div class="field">
+                    <label for="availability_slot_2">Availability option 2</label>
+                    <input id="availability_slot_2" name="availability_slot_2" type="text" placeholder="e.g. Thursday 12:00–13:00" />
+                  </div>
+                  <div class="field">
+                    <label for="availability_slot_3">Availability option 3</label>
+                    <input id="availability_slot_3" name="availability_slot_3" type="text" placeholder="e.g. Saturday 10:00–11:00" />
                   </div>
                   <div class="field full">
                     <label for="chosen_pack">Chosen pack</label>
                     <select id="chosen_pack" name="chosen_pack">
                       <option value="">Select…</option>
-                      <option>Essential CHF 189</option>
-                      <option>Intensive CHF 369</option>
+                      <option>Essential CHF 30/week</option>
+                      <option>Intensive CHF 60/week</option>
                     </select>
                   </div>
                 </div>
