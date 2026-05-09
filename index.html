@@ -29,6 +29,7 @@
       --shadow-card:0 12px 30px rgba(10,14,26,.08);
       --max:1120px;
       --heading-font:"Manrope", system-ui, -apple-system, Segoe UI, sans-serif;
+      --soft-red:#E35D6A;
     }
 
     *{ box-sizing:border-box; }
@@ -363,90 +364,69 @@
     }
     .card:hover{ transform:translateY(-3px); box-shadow:0 18px 50px rgba(10,14,26,.12); }
 
-    /* How it works carousel */
+    /* How it works (static editorial grid) */
     .steps-wrap{
       margin-top:28px;
       position:relative;
     }
-    .steps-nav{
-      display:flex;
-      gap:10px;
-      justify-content:flex-end;
-      margin-bottom:10px;
-    }
-    .steps-nav .btn{
-      padding:.55rem .85rem;
-      border-radius:14px;
-    }
     .steps{
-      display:flex;
-      gap:14px;
-      overflow-x:auto;
-      scroll-snap-type:x mandatory;
-      scroll-padding:8px;
-      padding:8px;
-      margin:-8px;
-      -webkit-overflow-scrolling:touch;
-    }
-    .steps::-webkit-scrollbar{ height:10px; }
-    .steps::-webkit-scrollbar-thumb{
-      background:rgba(199,208,255,.9);
-      border-radius:999px;
-      border:3px solid rgba(255,255,255,.9);
+      margin-top:10px;
+      display:grid;
+      grid-template-columns:repeat(5, minmax(0, 1fr));
+      gap:28px;
+      position:relative;
     }
     .step{
-      position:relative;
-      padding:18px 16px 16px;
-      background:var(--white);
-      border:1px solid rgba(199,208,255,.9);
-      border-radius:20px;
-      box-shadow:var(--shadow-card);
-      transition:transform .18s ease, box-shadow .18s ease;
-      min-height:172px;
-      flex:0 0 300px;
-      scroll-snap-align:start;
+      padding:0;
+      background:transparent;
+      border:0;
+      border-radius:0;
+      box-shadow:none;
+      min-height:auto;
     }
-    .step:hover{ transform:translateY(-3px); box-shadow:0 18px 50px rgba(10,14,26,.12); }
     .step .num{
-      width:36px; height:36px;
-      border-radius:999px;
-      background:var(--blue-pale);
-      border:1px solid rgba(28,69,244,.22);
       color:var(--blue);
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:700;
+      display:block;
+      font-weight:800;
       font-family:var(--heading-font);
-      letter-spacing:-0.02em;
-      margin-bottom:12px;
+      letter-spacing:-0.03em;
+      font-size:2rem;
+      line-height:1;
+      margin-bottom:14px;
+      position:relative;
+      padding-bottom:12px;
     }
+    /* one thin connector line across the row (desktop) */
+    .steps::before{
+      content:"";
+      position:absolute;
+      left:0;
+      right:0;
+      top:2.6rem;
+      height:1px;
+      background:rgba(28,69,244,.22);
+      z-index:0;
+    }
+    .step .num{ z-index:1; }
     .step h3{ margin-bottom:8px; }
     .step p{ margin:0; color:var(--ink-mid); font-weight:400; font-size:.96rem; }
+
+    @media (max-width: 760px){
+      .steps{ grid-template-columns:1fr; }
+      .steps::before{ display:none; }
+    }
 
     .highlight-box{
       margin-top:22px;
       border-radius:22px;
       padding:18px 18px;
-      background:linear-gradient(180deg, rgba(28,69,244,.95), rgba(28,69,244,.88));
-      color:var(--white);
-      border:1px solid rgba(255,255,255,.18);
-      box-shadow:0 18px 55px rgba(28,69,244,.24);
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
+      background:var(--ink);
+      color:rgba(255,255,255,.92);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:0 18px 55px rgba(10,14,26,.20);
+      text-align:left;
     }
-    .highlight-box .mark{
-      width:34px; height:34px;
-      border-radius:12px;
-      background:rgba(255,255,255,.16);
-      border:1px solid rgba(255,255,255,.20);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      flex:0 0 34px;
-    }
-    .highlight-box p{ margin:0; font-weight:400; color:rgba(255,255,255,.92); }
+    .highlight-box p{ margin:0; font-weight:400; color:rgba(255,255,255,.90); }
 
     /* Packs */
     .pack-grid{
@@ -593,46 +573,54 @@
     .note{ margin-top:12px; color:var(--ink-light); font-size:.95rem; }
 
     /* Guarantee section */
-    .dark{
-      background:var(--ink);
-      color:var(--white);
-    }
-    .dark .lead{ color:rgba(255,255,255,.72); }
     .two-col{
       margin-top:26px;
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:16px;
     }
-    .tone-card{
+    .guarantee-tag{
+      margin-top:10px;
+      margin-bottom:14px;
+    }
+    .guarantee-card{
       border-radius:22px;
       padding:18px 18px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.06);
+      border:1px solid rgba(199,208,255,.9);
+      background:var(--white);
+      box-shadow:var(--shadow-card);
+      position:relative;
+      overflow:hidden;
     }
-    .tone-card h3{ margin-bottom:12px; }
-    .tone-card ul{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px; }
-    .tone-card li{ display:flex; gap:10px; align-items:flex-start; color:rgba(255,255,255,.78); }
-    .tone-card .dot{
+    .guarantee-card::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:0;
+      bottom:0;
+      width:2px;
+      /* make the accent follow the card's rounded corners */
+      border-top-left-radius:22px;
+      border-bottom-left-radius:22px;
+    }
+    .guarantee-card.good::before{ background:rgba(19,171,95,.80); }
+    .guarantee-card.bad::before{ background:rgba(210,54,71,.75); }
+    .guarantee-card h3{ margin-bottom:12px; }
+    .guarantee-card ul{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px; }
+    .guarantee-card li{ display:flex; gap:10px; align-items:flex-start; color:var(--ink-mid); }
+    .guarantee-card .dot{
       width:10px; height:10px;
       border-radius:999px;
-      background:rgba(255,255,255,.35);
+      background:rgba(10,14,26,.20);
       margin-top:7px;
       flex:0 0 10px;
     }
-    .tone-card.good{
-      background:rgba(19,171,95,.10);
-      border-color:rgba(19,171,95,.24);
-    }
-    .tone-card.good .dot{ background:rgba(19,171,95,.85); }
-    .tone-card.bad{
-      background:rgba(210,54,71,.10);
-      border-color:rgba(210,54,71,.22);
-    }
-    .tone-card.bad .dot{ background:rgba(210,54,71,.85); }
-    .dark .fineprint{
+    .guarantee-card.good .dot{ background:rgba(19,171,95,.55); }
+    .guarantee-card.bad .dot{ background:rgba(210,54,71,.50); }
+
+    .fineprint{
       margin-top:14px;
-      color:rgba(255,255,255,.70);
+      color:var(--ink-light);
       font-size:.95rem;
     }
 
@@ -986,10 +974,6 @@
         </p>
 
         <div class="steps-wrap" aria-label="How it works steps">
-          <div class="steps-nav" aria-label="Step navigation">
-            <button class="btn outline" type="button" id="stepsPrev" aria-label="Previous step">Previous</button>
-            <button class="btn outline" type="button" id="stepsNext" aria-label="Next step">Next</button>
-          </div>
           <div class="steps" id="steps" role="list">
           <div class="step" role="listitem">
             <div class="num">1</div>
@@ -1020,7 +1004,6 @@
         </div>
 
         <div class="highlight-box" role="note" aria-label="Programme promise">
-          <div class="mark" aria-hidden="true">&#10003;</div>
           <p>If you do the work, you pass. If you do the work and still score below 4.0 at HSG, we refund CHF 100.</p>
         </div>
       </div>
@@ -1086,26 +1069,29 @@
     </section>
 
     <!-- GUARANTEE -->
-    <section class="section dark" id="guarantee" aria-label="Money-back guarantee">
+    <section class="section" id="guarantee" aria-label="Money-back guarantee">
       <div class="container">
-        <span class="label yellow">Our guarantee</span>
-        <h2 class="h-font h2" style="margin-top:12px; color:var(--white);">We put our money where our mouth is</h2>
+        <div class="badge guarantee-tag">
+          <span>Available from next semester</span>
+        </div>
+        <span class="label">Our guarantee</span>
+        <h2 class="h-font h2" style="margin-top:12px;">We put our money where our mouth is</h2>
         <p class="lead">
           If you complete all your assignments, attend all your sessions, and still score below 4.0 at HSG, we refund CHF 100. No questions asked.
         </p>
 
         <div class="two-col">
-          <div class="tone-card good">
-            <h3 class="h-font h3" style="color:var(--white);">You keep the guarantee if:</h3>
+          <div class="guarantee-card good">
+            <h3 class="h-font h3">You keep the guarantee if:</h3>
             <ul>
               <li><span class="dot" aria-hidden="true"></span><span>You submit 100% of weekly assignments on time</span></li>
               <li><span class="dot" aria-hidden="true"></span><span>You attend all tutoring sessions (or cancel 24h in advance)</span></li>
             </ul>
           </div>
-          <div class="tone-card bad">
-            <h3 class="h-font h3" style="color:var(--white);">You lose the guarantee if:</h3>
+          <div class="guarantee-card bad">
+            <h3 class="h-font h3">You lose the guarantee if:</h3>
             <ul>
-              <li><span class="dot" aria-hidden="true"></span><span>You miss more than 1 assignment per month</span></li>
+              <li><span class="dot" aria-hidden="true"></span><span>If you miss a weekly assignment</span></li>
               <li><span class="dot" aria-hidden="true"></span><span>You skip a session without 24h notice more than once</span></li>
             </ul>
           </div>
@@ -1413,19 +1399,6 @@
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && body.classList.contains('nav-open')) setNavOpen(false);
       });
-
-      // How it works carousel controls
-      const stepsEl = document.getElementById('steps');
-      const stepsPrev = document.getElementById('stepsPrev');
-      const stepsNext = document.getElementById('stepsNext');
-      function scrollSteps(dir){
-        if (!stepsEl) return;
-        const first = stepsEl.querySelector('.step');
-        const stepW = first ? (first.getBoundingClientRect().width + 14) : 320;
-        stepsEl.scrollBy({ left: dir * stepW, behavior:'smooth' });
-      }
-      stepsPrev?.addEventListener('click', () => scrollSteps(-1));
-      stepsNext?.addEventListener('click', () => scrollSteps(1));
 
       // Application form (Formspree + dynamic fields)
       const applicationForm = document.getElementById('applicationForm');
