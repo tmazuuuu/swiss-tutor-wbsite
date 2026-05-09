@@ -193,6 +193,10 @@
       transition:background .18s ease, transform .18s ease;
     }
     .hamburger:hover{ background:var(--blue-pale); }
+    .hamburger:focus-visible{
+      outline:3px solid rgba(28,69,244,.28);
+      outline-offset:2px;
+    }
     .hamburger-lines{ width:18px; height:12px; position:relative; }
     .hamburger-lines span{
       position:absolute; left:0; right:0;
@@ -234,9 +238,9 @@
     .hero{
       min-height:100vh;
       display:flex;
-      align-items:center;
-      padding-top:96px; /* nav offset */
-      padding-bottom:64px;
+      align-items:flex-start;
+      padding-top:120px; /* nav offset + extra breathing room */
+      padding-bottom:84px;
       position:relative;
       overflow:hidden;
     }
@@ -291,7 +295,8 @@
       position:relative;
       z-index:2;
     }
-    .hero-copy{ padding:18px 0; max-width:720px; }
+    /* Roomier hero so the headline sits lower (like the reference) */
+    .hero-copy{ padding:72px 0 40px; max-width:720px; }
     .hero-title{
       margin-top:16px;
       font-size:clamp(2.2rem, 3.6vw, 3.05rem);
@@ -372,7 +377,7 @@
     .steps{
       margin-top:10px;
       display:grid;
-      grid-template-columns:repeat(5, minmax(0, 1fr));
+      grid-template-columns:1fr;
       gap:28px;
       position:relative;
     }
@@ -396,24 +401,25 @@
       position:relative;
       padding-bottom:12px;
     }
-    /* one thin connector line across the row (desktop) */
-    .steps::before{
-      content:"";
-      position:absolute;
-      left:0;
-      right:0;
-      top:2.6rem;
-      height:1px;
-      background:rgba(28,69,244,.22);
-      z-index:0;
-    }
+    /* connector line appears only on desktop row */
+    .steps::before{ display:none; }
     .step .num{ z-index:1; }
     .step h3{ margin-bottom:8px; }
     .step p{ margin:0; color:var(--ink-mid); font-weight:400; font-size:.96rem; }
 
-    @media (max-width: 760px){
-      .steps{ grid-template-columns:1fr; }
-      .steps::before{ display:none; }
+    @media (min-width: 768px){
+      .steps{ grid-template-columns:repeat(5, minmax(0, 1fr)); }
+      .steps::before{
+        display:block;
+        content:"";
+        position:absolute;
+        left:0;
+        right:0;
+        top:2.6rem;
+        height:1px;
+        background:rgba(28,69,244,.22);
+        z-index:0;
+      }
     }
 
     .highlight-box{
@@ -427,6 +433,15 @@
       text-align:left;
     }
     .highlight-box p{ margin:0; font-weight:400; color:rgba(255,255,255,.90); }
+    .highlight-box .badge{
+      margin-top:10px;
+      background:rgba(255,255,255,.06);
+      border-color:rgba(255,255,255,.18);
+      color:rgba(255,255,255,.78);
+      box-shadow:none;
+      font-size:.86rem;
+      padding:.36rem .7rem;
+    }
 
     /* Packs */
     .pack-grid{
@@ -442,26 +457,20 @@
     }
     .pack-header{
       padding:18px 18px 16px;
-      color:var(--white);
+      color:var(--ink);
       position:relative;
+      background:rgba(245,247,255,.65);
+      border-bottom:1px solid rgba(199,208,255,.75);
     }
-    .pack-header.dark{ background:linear-gradient(180deg, rgba(10,14,26,.98), rgba(10,14,26,.92)); }
-    .pack-header.blue{ background:linear-gradient(180deg, rgba(28,69,244,.98), rgba(28,69,244,.90)); }
     .pack-header .top{
       display:flex;
       justify-content:space-between;
       align-items:flex-start;
       gap:10px;
     }
-    .pack-header .name{
-      font-family:var(--heading-font);
-      font-weight:800;
-      letter-spacing:-0.03em;
-      font-size:1.35rem;
-    }
     .pack-header .sub{
       margin-top:6px;
-      color:rgba(255,255,255,.78);
+      color:var(--ink-mid);
       font-weight:400;
     }
     .pack-header .popular{
@@ -469,23 +478,39 @@
       align-items:center;
       gap:.45rem;
       padding:.38rem .65rem;
-      background:rgba(255,255,255,.16);
-      border:1px solid rgba(255,255,255,.22);
+      background:rgba(255,255,255,.70);
+      border:1px solid rgba(199,208,255,.75);
       border-radius:999px;
       font-size:.8rem;
-      color:rgba(255,255,255,.92);
+      color:var(--ink-mid);
       white-space:nowrap;
     }
-    .pack-header.blue .popular{ color:var(--yellow); border-color:rgba(255,210,63,.55); }
     .pack-body{ padding:18px 18px 20px; background:var(--white); }
-    .price{
+    .pack-price-label{
+      font-size:.85rem;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      color:var(--ink-light);
+      font-weight:500;
+      margin-bottom:10px;
+    }
+    .pack-price-amount{
+      margin:0 0 14px 0;
       display:flex;
       align-items:baseline;
-      gap:8px;
-      margin:0 0 14px 0;
+      gap:10px;
     }
-    .price strong{ font-size:1.6rem; letter-spacing:-0.02em; }
-    .price span{ color:var(--ink-light); font-size:.95rem; }
+    .pack-price-amount strong{
+      font-size:1.7rem;
+      letter-spacing:-0.02em;
+      color:var(--ink);
+      font-weight:800;
+    }
+    .pack-price-amount span{
+      color:var(--ink-light);
+      font-size:1rem;
+      font-weight:500;
+    }
     .features{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
     .features li{ display:flex; gap:10px; align-items:flex-start; color:var(--ink-mid); }
     .features .check{
@@ -583,6 +608,12 @@
       margin-top:10px;
       margin-bottom:14px;
     }
+    .guarantee-head{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:10px;
+    }
     .guarantee-card{
       border-radius:22px;
       padding:18px 18px;
@@ -628,7 +659,7 @@
     .uni-grid{
       margin-top:26px;
       display:grid;
-      grid-template-columns:repeat(3, 1fr);
+      grid-template-columns:repeat(2, 1fr);
       gap:14px;
     }
     .uni-card{
@@ -947,12 +978,12 @@
                 <span>Tutors who recently passed your exam</span>
               </div>
               <div class="stat">
-                <strong>CHF 30</strong>
-                <span>Starting from per week</span>
+                <strong>From CHF 30</strong>
+                <span>per week</span>
               </div>
               <div class="stat">
                 <strong>HSG</strong>
-                <span>Launch phase</span>
+                <span>Now enrolling</span>
               </div>
               <div class="stat">
                 <strong>Money-back</strong>
@@ -1005,6 +1036,9 @@
 
         <div class="highlight-box" role="note" aria-label="Programme promise">
           <p>If you do the work, you pass. If you do the work and still score below 4.0 at HSG, we refund CHF 100.</p>
+          <div class="badge" aria-label="Availability note">
+            <span>Available from next semester</span>
+          </div>
         </div>
       </div>
     </section>
@@ -1020,16 +1054,16 @@
 
         <div class="pack-grid">
           <article class="card pack" aria-label="Essential pack">
-            <div class="pack-header dark">
+            <div class="pack-header">
               <div class="top">
                 <div>
-                  <div class="name">Essential</div>
                   <div class="sub">1 session per week</div>
                 </div>
               </div>
             </div>
             <div class="pack-body">
-              <p class="price"><strong>CHF 30</strong><span>/week &middot; essential</span></p>
+              <div class="pack-price-label">Essential</div>
+              <div class="pack-price-amount"><strong>CHF 30</strong><span>/ week</span></div>
               <ul class="features">
                 <li><span class="check" aria-hidden="true">&#10003;</span><span>1 hour of tutoring per week with a verified peer tutor</span></li>
                 <li><span class="check" aria-hidden="true">&#10003;</span><span>Preparation assignments tailored to your course syllabus</span></li>
@@ -1042,23 +1076,23 @@
           </article>
 
           <article class="card pack" aria-label="Intensive pack">
-            <div class="pack-header blue">
+            <div class="pack-header">
               <div class="top">
                 <div>
-                  <div class="name">Intensive</div>
                   <div class="sub">2 sessions per week</div>
                 </div>
               </div>
             </div>
             <div class="pack-body">
-              <p class="price"><strong>CHF 60</strong><span>/week &middot; intensive</span></p>
+              <div class="pack-price-label">Intensive</div>
+              <div class="pack-price-amount"><strong>CHF 60</strong><span>/ week</span></div>
               <ul class="features">
                 <li><span class="check" aria-hidden="true">&#10003;</span><span>2 hours of tutoring per week with a verified peer tutor</span></li>
                 <li><span class="check" aria-hidden="true">&#10003;</span><span>Preparation assignments tailored to your course syllabus</span></li>
                 <li><span class="check" aria-hidden="true">&#10003;</span><span>Money-back guarantee (conditions apply)</span></li>
               </ul>
               <div class="pack-actions">
-                <a class="btn primary full" href="#apply" data-pack="Intensive CHF 60/week">Apply for this pack</a>
+                <a class="btn outline full" href="#apply" data-pack="Intensive CHF 60/week">Apply for this pack</a>
               </div>
             </div>
           </article>
@@ -1071,10 +1105,12 @@
     <!-- GUARANTEE -->
     <section class="section" id="guarantee" aria-label="Money-back guarantee">
       <div class="container">
-        <div class="badge guarantee-tag">
-          <span>Available from next semester</span>
+        <div class="guarantee-head">
+          <div class="badge guarantee-tag">
+            <span>Available from next semester</span>
+          </div>
+          <span class="label">Our guarantee</span>
         </div>
-        <span class="label">Our guarantee</span>
         <h2 class="h-font h2" style="margin-top:12px;">We put our money where our mouth is</h2>
         <p class="lead">
           If you complete all your assignments, attend all your sessions, and still score below 4.0 at HSG, we refund CHF 100. No questions asked.
@@ -1140,10 +1176,10 @@
             </div>
             <div class="tag"><span>Coming soon</span></div>
           </div>
-          <div class="uni-card" role="group" aria-label="UNINE Neuchatel">
+          <div class="uni-card" role="group" aria-label="UNINE Neuchâtel">
             <div>
               <div class="uni-name">UNINE</div>
-              <div class="uni-city">Neuchatel</div>
+              <div class="uni-city">Neuchâtel</div>
             </div>
             <div class="tag"><span>Coming soon</span></div>
           </div>
@@ -1184,7 +1220,7 @@
               </div>
               <div class="field">
                 <label for="university_email">University email</label>
-                <input id="university_email" name="university_email" type="email" placeholder="your@student.unisg.ch" autocomplete="email" required />
+                <input id="university_email" name="university_email" type="email" placeholder="your@university.ch" autocomplete="email" required />
                 <div class="error-msg">Please enter a valid university email address.</div>
               </div>
               <div class="field">
@@ -1207,7 +1243,15 @@
               </div>
               <div class="field">
                 <label for="year_of_study">Year of study</label>
-                <input id="year_of_study" name="year_of_study" type="text" />
+                <select id="year_of_study" name="year_of_study">
+                  <option value="">Select…</option>
+                  <option>1st year</option>
+                  <option>2nd year</option>
+                  <option>3rd year</option>
+                  <option>4th year</option>
+                  <option>Master</option>
+                  <option>Other</option>
+                </select>
               </div>
 
               <fieldset id="studentFields" class="field full" style="border:0; padding:0; margin:0;">
@@ -1243,7 +1287,7 @@
                   <div class="field full">
                     <label>Availability (student)</label>
                     <div class="muted" style="margin-top:-4px; font-size:.92rem;">
-                      Propose us three times in the week where you would be available for sessions.
+                      Suggest three time slots when you are available for sessions.
                     </div>
                   </div>
                   <div class="field">
@@ -1260,6 +1304,9 @@
                   </div>
                   <div class="field full">
                     <label for="chosen_pack">Chosen pack</label>
+                    <div class="muted" style="margin-top:-4px; font-size:.92rem;">
+                      Essential — 1 session/week &middot; CHF 30 | Intensive — 2 sessions/week &middot; CHF 60
+                    </div>
                     <select id="chosen_pack" name="chosen_pack">
                       <option value="">Select…</option>
                       <option>Essential CHF 30/week</option>
@@ -1343,10 +1390,10 @@
           <a href="#apply">Apply</a>
         </nav>
 
-        <div class="foot-right">swisstutor.ch</div>
+        <div class="foot-right">swisstutor.org</div>
       </div>
 
-      <div class="foot-bottom">(c) 2025 SwissTutor &middot; All rights reserved &middot; Launching at HSG, St. Gallen</div>
+      <div class="foot-bottom">© 2026 SwissTutor &middot; All rights reserved &middot; Launching at HSG, St. Gallen</div>
     </div>
   </footer>
 
