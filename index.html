@@ -980,7 +980,7 @@
                 <span>Tutors who recently passed your exam</span>
               </div>
               <div class="stat">
-                <strong>From CHF 30</strong>
+                <strong>From CHF 45</strong>
                 <span>per week</span>
               </div>
               <div class="stat">
@@ -1065,14 +1065,14 @@
             </div>
             <div class="pack-body">
               <div class="pack-price-label">Essential</div>
-              <div class="pack-price-amount"><strong>CHF 30</strong><span>/ week</span></div>
+              <div class="pack-price-amount"><strong>CHF 45</strong><span>/ week</span></div>
               <ul class="features">
                 <li><span class="check" aria-hidden="true">&#10003;</span><span>1 hour of tutoring per week with a verified peer tutor</span></li>
                 <li><span class="check" aria-hidden="true">&#10003;</span><span>Preparation assignments tailored to your course syllabus</span></li>
                 <li><span class="check" aria-hidden="true">&#10003;</span><span>Money-back guarantee (conditions apply)</span></li>
               </ul>
               <div class="pack-actions">
-                <a class="btn outline full" href="#apply" data-pack="Essential CHF 30/week">Apply for this pack</a>
+                <a class="btn outline full" href="#apply" data-pack="Essential CHF 45/week">Apply for this pack</a>
               </div>
             </div>
           </article>
@@ -1087,14 +1087,14 @@
             </div>
             <div class="pack-body">
               <div class="pack-price-label">Intensive</div>
-              <div class="pack-price-amount"><strong>CHF 60</strong><span>/ week</span></div>
+              <div class="pack-price-amount"><strong>CHF 90</strong><span>/ week</span></div>
               <ul class="features">
                 <li><span class="check" aria-hidden="true">&#10003;</span><span>2 hours of tutoring per week with a verified peer tutor</span></li>
                 <li><span class="check" aria-hidden="true">&#10003;</span><span>Preparation assignments tailored to your course syllabus</span></li>
                 <li><span class="check" aria-hidden="true">&#10003;</span><span>Money-back guarantee (conditions apply)</span></li>
               </ul>
               <div class="pack-actions">
-                <a class="btn outline full" href="#apply" data-pack="Intensive CHF 60/week">Apply for this pack</a>
+                <a class="btn outline full" href="#apply" data-pack="Intensive CHF 90/week">Apply for this pack</a>
               </div>
             </div>
           </article>
@@ -1307,12 +1307,12 @@
                   <div class="field full">
                     <label for="chosen_pack">Chosen pack</label>
                     <div class="muted" style="margin-top:-4px; font-size:.92rem;">
-                      Essential — 1 session/week &middot; CHF 30 | Intensive — 2 sessions/week &middot; CHF 60
+                      Essential — 1 session/week &middot; CHF 45 | Intensive — 2 sessions/week &middot; CHF 90
                     </div>
                     <select id="chosen_pack" name="chosen_pack">
                       <option value="">Select…</option>
-                      <option>Essential CHF 30/week</option>
-                      <option>Intensive CHF 60/week</option>
+                      <option>Essential CHF 45/week</option>
+                      <option>Intensive CHF 90/week</option>
                     </select>
                   </div>
                 </div>
@@ -1404,26 +1404,6 @@
       const root = document.documentElement;
       const body = document.body;
 
-      // #region agent log (debug)
-      function dbg(hypothesisId, location, message, data){
-        try{
-          fetch('http://127.0.0.1:7824/ingest/469c9e61-7947-4e97-978e-aab3aedbf80f',{
-            method:'POST',
-            headers:{'Content-Type':'application/json','X-Debug-Session-Id':'9bd76e'},
-            body:JSON.stringify({
-              sessionId:'9bd76e',
-              runId:'repro',
-              hypothesisId,
-              location,
-              message,
-              data,
-              timestamp:Date.now()
-            })
-          }).catch(()=>{});
-        }catch(_e){}
-      }
-      // #endregion
-
       // Mobile nav toggle
       const hamburger = document.getElementById('hamburger');
       const mobileMenu = document.getElementById('mobileMenu');
@@ -1431,9 +1411,6 @@
         body.classList.toggle('nav-open', open);
         hamburger.setAttribute('aria-expanded', String(open));
         hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-        // #region agent log (debug)
-        dbg('H1','index.html:nav','setNavOpen', { open });
-        // #endregion
         if (open) {
           mobileMenu.querySelector('a')?.focus();
         } else {
@@ -1479,9 +1456,6 @@
         // Ensure tutor payment UI is consistent when toggling
         setPaymentMethod(applicationForm?.querySelector('input[name="payment_method"]:checked')?.value || 'twint');
         if (successBox) successBox.style.display = 'none';
-        // #region agent log (debug)
-        dbg('H2','index.html:apply','setApplicantType', { type });
-        // #endregion
       }
 
       function setPaymentMethod(method){
@@ -1562,9 +1536,6 @@
       function showSuccess(){
         if (applicationForm) applicationForm.style.display = 'none';
         if (successBox) successBox.style.display = 'block';
-        // #region agent log (debug)
-        dbg('H3','index.html:apply','showSuccess', { successVisible: true });
-        // #endregion
         successBox?.scrollIntoView({behavior:'smooth', block:'nearest'});
       }
 
@@ -1615,9 +1586,6 @@
           await submitToFormspree(applicationForm);
           showSuccess();
         } catch (err) {
-          // #region agent log (debug)
-          dbg('H4','index.html:apply','submit.failed', { message: String(err?.message || err) });
-          // #endregion
           alert(err?.message || 'Submission failed. Please try again.');
           if (btn) btn.disabled = false;
         }
@@ -1629,10 +1597,6 @@
           if (body.classList.contains('nav-open')) setNavOpen(false);
         });
       });
-
-      // #region agent log (debug)
-      dbg('H0','index.html:boot','pageLoaded', { href: location.href, readyState: document.readyState });
-      // #endregion
     })();
   </script>
 </body>
